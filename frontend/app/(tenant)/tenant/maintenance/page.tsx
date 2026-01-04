@@ -10,16 +10,16 @@ import MaintenanceFormDialog from '@/components/forms/maintenance-form-dialog';
 import { useAuth } from '@/lib/auth-context';
 
 export default function TenantMaintenancePage() {
-  const { user, loading, isInitialized } = useAuth();
+  const { user, loading, isInitialized, isAuthenticated } = useAuth();
   const router = useRouter();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
-    if (!loading && isInitialized && (!user || user.role !== 'tenant')) {
+    if (!loading && isInitialized && (!isAuthenticated || (user && user.role !== 'tenant'))) {
       router.push('/login');
     }
-  }, [user, loading, isInitialized, router]);
+  }, [user, loading, isInitialized, isAuthenticated, router]);
 
   if (loading) {
     return (

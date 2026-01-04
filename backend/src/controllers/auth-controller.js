@@ -27,6 +27,10 @@ exports.signup = catchAsync(async (req, res, next) => {
   if (existingUser) {
     return next(new AppError('Email already registered', 400));
   }
+  const existingPhoneUser = await User.findOne({ phone });
+  if (existingPhoneUser) {
+    return next(new AppError('Phone number already registered', 400));
+  }
   const user = await User.create({
     name,
     email,

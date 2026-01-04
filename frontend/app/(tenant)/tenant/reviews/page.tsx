@@ -10,15 +10,15 @@ import ReviewFormDialog from '@/components/forms/review-form-dialog';
 import { useAuth } from '@/lib/auth-context';
 
 export default function TenantReviewsPage() {
-  const { user, loading, isInitialized } = useAuth();
+  const { user, loading, isInitialized, isAuthenticated } = useAuth();
   const router = useRouter();
   const [isReviewDialogOpen, setIsReviewDialogOpen] = useState(false);
 
   useEffect(() => {
-    if (!loading && isInitialized && (!user || user.role !== 'tenant')) {
+    if (!loading && isInitialized && (!isAuthenticated || (user && user.role !== 'tenant'))) {
       router.push('/login');
     }
-  }, [user, loading, isInitialized, router]);
+  }, [user, loading, isInitialized, isAuthenticated, router]);
 
   if (loading) {
     return (

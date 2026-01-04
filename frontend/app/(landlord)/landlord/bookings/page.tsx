@@ -10,15 +10,15 @@ import AssignPropertyDialog from '@/components/forms/assign-property-dialog';
 import { useAuth } from '@/lib/auth-context';
 
 export default function LandlordBookingsPage() {
-  const { user, loading } = useAuth();
+  const { user, loading, isInitialized, isAuthenticated } = useAuth();
   const router = useRouter();
   const [isAssignDialogOpen, setIsAssignDialogOpen] = useState(false);
 
   useEffect(() => {
-    if (!loading && (!user || user.role !== 'landlord')) {
+    if (!loading && isInitialized && (!isAuthenticated || (user && user.role !== 'landlord'))) {
       router.push('/login');
     }
-  }, [user, loading, router]);
+  }, [user, loading, isInitialized, isAuthenticated, router]);
 
   if (loading) {
     return (

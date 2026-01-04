@@ -5,20 +5,20 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth-context';
 
 export default function AdminPage() {
-  const { user, loading, isInitialized } = useAuth();
+  const { user, loading, isInitialized, isAuthenticated } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
     if (!loading && isInitialized) {
-      if (!user) {
+      if (!isAuthenticated) {
         router.push('/login');
-      } else if (user.role !== 'admin') {
+      } else if (user && user.role !== 'admin') {
         router.push('/');
       } else {
         router.push('/admin/tenants');
       }
     }
-  }, [user, loading, isInitialized, router]);
+  }, [user, loading, isInitialized, isAuthenticated, router]);
 
   if (loading) {
     return (

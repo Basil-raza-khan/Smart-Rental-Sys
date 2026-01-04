@@ -1,8 +1,7 @@
 {
+  "/(auth)/login/page": "app/(auth)/login/page.js",
   "/(landlord)/landlord/properties/page": "app/(landlord)/landlord/properties/page.js",
   "/(landlord)/landlord/bookings/page": "app/(landlord)/landlord/bookings/page.js",
-  "/(auth)/login/page": "app/(auth)/login/page.js",
-  "/(landlord)/landlord/maintenance/page": "app/(landlord)/landlord/maintenance/page.js",
-  "/(admin)/admin/landlords/page": "app/(admin)/admin/landlords/page.js",
-  "/(auth)/signup/page": "app/(auth)/signup/page.js"
+  "/(admin)/admin/tenants/page": "app/(admin)/admin/tenants/page.js",
+  "/(admin)/admin/landlords/page": "app/(admin)/admin/landlords/page.js"
 }

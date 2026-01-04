@@ -7,12 +7,14 @@ import { authAPI } from './api/index';
 import { useAuthStore } from './stores';
 
 interface AuthContextType {
+  token: string | null;
   user: User | null;
   login: (email: string, password: string) => Promise<User>;
   signup: (data: any) => Promise<User>;
   logout: () => void;
   loading: boolean;
   isInitialized: boolean;
+  isAuthenticated: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -35,6 +37,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     token,
     isLoading,
     isInitialized,
+    isAuthenticated,
     login: storeLogin,
     logout: storeLogout,
     initialize
@@ -49,7 +52,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const login = async (email: string, password: string) => {
     const response = await authAPI.login({ email, password });
-    const { user: loggedInUser, token: newToken } = response.data.data;
+    const { token: newToken, data: { user: loggedInUser } } = response.data;
     localStorage.setItem('token', newToken); // Ensure token is in localStorage
     storeLogin(loggedInUser, newToken);
     return loggedInUser;
@@ -57,7 +60,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const signup = async (data: any) => {
     const response = await authAPI.signup(data);
-    const { user: signedUpUser, token: newToken } = response.data.data;
+    const { token: newToken, data: { user: signedUpUser } } = response.data;
     localStorage.setItem('token', newToken); // Ensure token is in localStorage
     storeLogin(signedUpUser, newToken);
     return signedUpUser;
@@ -69,7 +72,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, signup, logout, loading: isLoading, isInitialized }}>
+    <AuthContext.Provider value={{ user, login, signup, logout, loading: isLoading, isInitialized, isAuthenticated }}>
       {children}
     </AuthContext.Provider>
   );

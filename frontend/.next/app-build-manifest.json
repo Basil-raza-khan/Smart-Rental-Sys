@@ -11,11 +11,6 @@
       "static/chunks/main-app.js",
       "static/chunks/app/not-found.js"
     ],
-    "/(admin)/admin/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(admin)/admin/page.js"
-    ],
     "/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
@@ -26,35 +21,45 @@
       "static/chunks/main-app.js",
       "static/chunks/app/(auth)/login/page.js"
     ],
-    "/(landlord)/landlord/properties/page": [
+    "/(auth)/signup/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/(landlord)/landlord/properties/page.js"
+      "static/chunks/app/(auth)/signup/page.js"
     ],
     "/(admin)/admin/tenants/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/(admin)/admin/tenants/page.js"
     ],
+    "/(admin)/admin/landlords/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(admin)/admin/landlords/page.js"
+    ],
     "/(admin)/admin/reviews/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/(admin)/admin/reviews/page.js"
     ],
-    "/(admin)/admin/landlords/page": [
+    "/_not-found/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/(admin)/admin/landlords/page.js"
+      "static/chunks/app/_not-found/page.js"
+    ],
+    "/(landlord)/landlord/properties/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(landlord)/landlord/properties/page.js"
     ],
     "/(landlord)/landlord/bookings/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/(landlord)/landlord/bookings/page.js"
     ],
-    "/_not-found/page": [
+    "/(landlord)/landlord/maintenance/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/_not-found/page.js"
+      "static/chunks/app/(landlord)/landlord/maintenance/page.js"
     ],
     "/(tenant)/tenant/bookings/page": [
       "static/chunks/webpack.js",
@@ -70,16 +75,6 @@
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/(tenant)/tenant/maintenance/page.js"
-    ],
-    "/(landlord)/landlord/maintenance/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(landlord)/landlord/maintenance/page.js"
-    ],
-    "/(auth)/signup/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(auth)/signup/page.js"
     ]
   }
 }

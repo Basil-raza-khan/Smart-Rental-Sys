@@ -10,17 +10,17 @@ import BookingDialog from '@/components/forms/booking-dialog';
 import { useAuth } from '@/lib/auth-context';
 
 export default function TenantBookingsPage() {
-  const { user, loading, isInitialized } = useAuth();
+  const { user, loading, isInitialized, isAuthenticated } = useAuth();
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedProperty, setSelectedProperty] = useState(null);
   const [isBookingDialogOpen, setIsBookingDialogOpen] = useState(false);
 
   useEffect(() => {
-    if (!loading && isInitialized && (!user || user.role !== 'tenant')) {
+    if (!loading && isInitialized && (!isAuthenticated || (user && user.role !== 'tenant'))) {
       router.push('/login');
     }
-  }, [user, loading, isInitialized, router]);
+  }, [user, loading, isInitialized, isAuthenticated, router]);
 
   const handleBookProperty = (property: any) => {
     setSelectedProperty(property);

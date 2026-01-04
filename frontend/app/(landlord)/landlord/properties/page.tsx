@@ -11,7 +11,7 @@ import AssignPropertyDialog from '@/components/forms/assign-property-dialog';
 import { useAuth } from '@/lib/auth-context';
 
 export default function LandlordPropertiesPage() {
-  const { user, loading, isInitialized } = useAuth();
+  const { user, loading, isInitialized, isAuthenticated } = useAuth();
   const router = useRouter();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingProperty, setEditingProperty] = useState(null);
@@ -20,10 +20,10 @@ export default function LandlordPropertiesPage() {
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
-    if (!loading && isInitialized && (!user || user.role !== 'landlord')) {
+    if (!loading && isInitialized && (!isAuthenticated || (user && user.role !== 'landlord'))) {
       router.push('/login');
     }
-  }, [user, loading, isInitialized, router]);
+  }, [user, loading, isInitialized, isAuthenticated, router]);
 
   const handleEdit = (property: any) => {
     setEditingProperty(property);

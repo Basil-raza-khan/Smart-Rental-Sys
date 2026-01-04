@@ -7,6 +7,7 @@ interface AuthState {
   token: string | null;
   isLoading: boolean;
   isInitialized: boolean;
+  isAuthenticated: boolean;
   login: (user: User, token: string) => void;
   logout: () => void;
   initialize: () => Promise<void>;
@@ -19,13 +20,14 @@ export const useAuthStore = create<AuthState>()(
       token: null,
       isLoading: true,
       isInitialized: false,
+      isAuthenticated: false,
       login: (user: User, token: string) => {
         localStorage.setItem('token', token);
-        set({ user, token, isLoading: false });
+        set({ user, token, isLoading: false, isAuthenticated: true });
       },
       logout: () => {
         localStorage.removeItem('token');
-        set({ user: null, token: null, isLoading: false });
+        set({ user: null, token: null, isLoading: false, isAuthenticated: false });
       },
       initialize: async () => {
         let token = get().token;
@@ -49,17 +51,16 @@ export const useAuthStore = create<AuthState>()(
             set({
               user: response.data.data.user,
               isLoading: false,
-              isInitialized: true
+              isInitialized: true,
+              isAuthenticated: true
             });
           } catch (error) {
             console.error('Auth initialization failed:', error);
-            // Clear invalid token
-            localStorage.removeItem('token');
+            // Keep the stored user and token, and authenticated status
             set({
-              user: null,
-              token: null,
               isLoading: false,
-              isInitialized: true
+              isInitialized: true,
+              isAuthenticated: true
             });
           }
         } else {
@@ -69,7 +70,8 @@ export const useAuthStore = create<AuthState>()(
             user: null,
             token: null,
             isLoading: false,
-            isInitialized: true
+            isInitialized: true,
+            isAuthenticated: false
           });
         }
       },

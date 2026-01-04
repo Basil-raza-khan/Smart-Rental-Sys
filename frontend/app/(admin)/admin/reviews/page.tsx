@@ -8,15 +8,15 @@ import AdminReviewsTable from '@/components/tables/admin-reviews-table';
 import { useAuth } from '@/lib/auth-context';
 
 export default function AdminReviewsPage() {
-  const { user, loading } = useAuth();
+  const { user, loading, isInitialized, isAuthenticated } = useAuth();
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
-    if (!loading && (!user || user.role !== 'admin')) {
+    if (!loading && isInitialized && (!isAuthenticated || (user && user.role !== 'admin'))) {
       router.push('/login');
     }
-  }, [user, loading, router]);
+  }, [user, loading, isInitialized, isAuthenticated, router]);
 
   if (loading) {
     return (

@@ -11,7 +11,7 @@ import { useAuth } from '@/lib/auth-context';
 import { useUsersStore } from '@/lib/stores';
 
 export default function AdminTenantsPage() {
-  const { user, loading, isInitialized } = useAuth();
+  const { user, loading, isInitialized, isAuthenticated } = useAuth();
   const { tenants } = useUsersStore();
   const router = useRouter();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -19,10 +19,10 @@ export default function AdminTenantsPage() {
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
-    if (!loading && isInitialized && (!user || user.role !== 'admin')) {
+    if (!loading && isInitialized && (!isAuthenticated || (user && user.role !== 'admin'))) {
       router.push('/login');
     }
-  }, [user, loading, isInitialized, router]);
+  }, [user, loading, isInitialized, isAuthenticated, router]);
 
   const handleEdit = (user: any) => {
     setEditingUser(user);
